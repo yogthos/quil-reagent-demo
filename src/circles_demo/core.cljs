@@ -26,8 +26,8 @@
     {:component-did-mount
      (fn [component]
        (let [node (r/dom-node component)
-             width (.-width node)
-             height (.-height node)]
+             width (/ (.-innerWidth js/window) 2)
+             height (/ (.-innerHeight js/window) 2)]
          (q/sketch
            :host node
            :draw draw
@@ -36,9 +36,7 @@
            :size [width height]
            :middleware [m/fun-mode])))
      :render
-     (fn []
-       [:canvas {:width  (/ (.-innerWidth js/window) 2)
-                 :height (/ (.-innerHeight js/window) 2)}])}))
+     (fn [] [:div])}))
 
 (defn home-page []
   (r/with-let [running? (r/atom false)]
